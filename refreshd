@@ -37,11 +37,17 @@ if [[ $1 == "toggle" ]]; then
 	else
 		set_high
 	fi
-elif [[ $1 == "reset" ]]; then
+elif [[ $1 == "restore" ]]; then
 	if [[ $STATUS = "LOW" ]]; then
 		set_low
 	else
 		set_high
+	fi
+elif [[ $1 == "reset" ]]; then
+	if [[ $DEFAULT = "LOW" ]]; then
+		set_low
+	else
+		set_hig
 	fi
 elif [[ $1 == "low" ]]; then
 	set_low
