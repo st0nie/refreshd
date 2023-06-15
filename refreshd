@@ -47,7 +47,7 @@ elif [[ $1 == "reset" ]]; then
 	if [[ $DEFAULT = "LOW" ]]; then
 		set_low
 	else
-		set_hig
+		set_high
 	fi
 elif [[ $1 == "low" ]]; then
 	set_low
