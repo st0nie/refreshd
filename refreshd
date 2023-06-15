@@ -1,0 +1,52 @@
+#!/bin/bash
+
+HI_CMD="kscreen-doctor output.eDP-1.mode.0"
+LOW_CMD="kscreen-doctor output.eDP-1.mode.1"
+
+DEFAULT="HI"
+
+toggle_low(){
+	echo "LOW" >~/.cache/refreshd
+}
+
+toggle_high(){
+	echo "HI" >~/.cache/refreshd
+}
+
+if [ ! -f ~/.cache/refreshd ]; then
+	echo "$DEFAULT" >~/.cache/refreshd
+fi
+
+set_low(){
+	$LOW_CMD
+	toggle_low
+	printf "low refresh rate set\n"
+}
+
+set_high(){
+	$HI_CMD
+	toggle_high
+	printf "high refresh rate set\n"
+}
+
+STATUS="$(cat ~/.cache/refreshd)"
+
+if [[ $1 == "toggle" ]]; then
+	if [[ $STATUS = "HI" ]]; then
+		set_low
+	else
+		set_high
+	fi
+elif [[ $1 == "reset" ]]; then
+	if [[ $STATUS = "LOW" ]]; then
+		set_low
+	else
+		set_high
+	fi
+elif [[ $1 == "low" ]]; then
+	set_low
+elif [[ $1 == "high" ]]; then
+	set_high
+else
+	printf '%s' "$STATUS"
+fi
